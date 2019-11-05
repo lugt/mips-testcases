@@ -19,6 +19,10 @@ def process_line(buf:str):
         newbuf = re.sub("\$([0-9]+)", "r\\1", newbuf)
         pass
 
+    newbuf = re.sub("^([ \t]*)(add[iu]*)", "\\1d\\2", newbuf)
+    newbuf = re.sub("^([ \t]*)daddiu", "\\1daddui", newbuf)
+    newbuf = re.sub("^([ \t]*)(move)(.*)", "\\1dadd\\3,r0", newbuf)
+    newbuf = re.sub("^([ \t]*)(j[ \t]+)r31(.*)", "\\1halt", newbuf)
     return newbuf
 
 with open('src.s') as f, open('dest.s', "w+") as outf:
