@@ -1,3 +1,4 @@
+	.text
 multime:
 	daddui	r29,r29,-160
 	sw	r30,156(r29)

@@ -4,7 +4,8 @@ import sys, logging, os, json, re
 
 def process_line(buf:str):
     newbuf = buf
-    if re.match("[ \t]*\.[a-z]*", newbuf) is not None:
+    if (re.match("[ \t]*\.[a-z]*", newbuf) is not None and
+       not re.match("[ \t]*\.text", newbuf)):
         newbuf = ""
     newbuf = newbuf.replace("$ra", "r31")
     newbuf = newbuf.replace("$fp", "r30")
