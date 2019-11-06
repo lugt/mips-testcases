@@ -1,9 +1,3 @@
-$LC0:
-	.ascii	"Mult-complex - Jason : \000"
-prompt1:
-$LC1:
-	.ascii	"Output =\000"
-prompt2:
 	.text
 multime:
 	daddui	r29,r29,-32
@@ -36,6 +30,14 @@ $L4:
 	daddu	r2,r3,r2
 	sw	r2,12(r30)
 $L3:
+	lw	r2,20(r30)
+	nop
+	sra	r2,r2,1
+	sw	r2,20(r30)
+	lw	r2,16(r30)
+	nop
+	sll	r2,r2,1
+	sw	r2,16(r30)
 	lw	r2,8(r30)
 	nop
 	daddui	r2,r2,1
