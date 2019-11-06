@@ -5,7 +5,8 @@ import sys, logging, os, json, re
 def process_line(buf:str):
     newbuf = buf
     if (re.match("[ \t]*\.[a-z]*", newbuf) is not None and
-       not re.match("[ \t]*\.text", newbuf)):
+        not re.match("[ \t]*\.text", newbuf) and
+        not re.match("[ \t]*\.ascii", newbuf)):
         newbuf = ""
     newbuf = newbuf.replace("$ra", "r31")
     newbuf = newbuf.replace("$fp", "r30")
@@ -25,6 +26,8 @@ def process_line(buf:str):
     newbuf = re.sub("^([ \t]*)(move)(.*)", "\\1dadd\\3,r0", newbuf)
     newbuf = re.sub("^([ \t]*)(li)([ \t]+)([^,]*),([-0-9]+)", "\\1daddi\\3\\4,r0,\\5", newbuf)
     newbuf = re.sub("^([ \t]*)(j[ \t]+)r31(.*)", "\\1halt", newbuf)
+    newbuf = re.sub("^([ \t]*)b([ \t]+)(.*)", "\\1j\\2\\3", newbuf)
+    newbuf = re.sub("^([ \t]*)lw\t([^,]*),%got\((.*)\).*\(.*\)", "\\1lw \\2, \\3", newbuf)
     return newbuf
 
 with open('src.s') as f, open('dest.s', "w+") as outf:
