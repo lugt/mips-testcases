@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $LC0:
 	.ascii	"Mult-complex - Jason : \000"
 $LC1:
@@ -8,6 +9,17 @@ $LC3:
 	.ascii	"Cycle: \000"
 $LC4:
 	.ascii	"Output: \000"
+=======
+.data
+mes:  .asciiz "Hello Computer Systems (III) 2017152003!\n"
+
+CONTROL: .word32 0x10000
+DATA:    .word32 0x10008
+
+PDATR:   .word32 0xBEADFEED
+QDATR:   .word32 0xFEADFADE
+
+>>>>>>> 86634ccc74c7c97aad4f118ffa053e3afb0002a2
 	.text
 multime:
 	daddui	r29,r29,-40
@@ -125,7 +137,7 @@ $L3:
 $L2:
 	lw	r2,8(r30)
 	nop
-	slt	r2,r2,32
+	slti	r2,r2,32
 	bne	r2,r0,$L4
 	nop
 
@@ -147,8 +159,22 @@ $L2:
 	sw	r3,0(r2)
 	lw	r2,12(r30)
 	dadd	r29,r30,r0
+<<<<<<< HEAD
 	lw	r30,36(r29)
 	daddui	r29,r29,40
+=======
+	lw	r30,28(r29)
+	daddui	r29,r29,32
+
+	lwu r8,DATA(r0)    ; get data
+	lwu r9,CONTROL(r0) ; and control registers
+
+	daddi r16,r0,1       ; set for ascii output
+	dadd r17,r0,r2
+	sd r17,0(r8)           ; write address of message to DATA register
+	sd r16,0(r9)           ; make it happen
+
+>>>>>>> 86634ccc74c7c97aad4f118ffa053e3afb0002a2
 	halt
 	nop
 
