@@ -23,7 +23,7 @@ def process_line(buf:str):
     newbuf = re.sub("^([ \t]*)(add[iu]*)", "\\1d\\2", newbuf)
     newbuf = re.sub("^([ \t]*)daddiu", "\\1daddui", newbuf)
     newbuf = re.sub("^([ \t]*)(move)(.*)", "\\1dadd\\3,r0", newbuf)
-    newbuf = re.sub("^([ \t]*)(li)([ \t]+)([^,]*),([-0-9]+)", "\\1dadd\\3,r0,\\4", newbuf)
+    newbuf = re.sub("^([ \t]*)(li)([ \t]+)([^,]*),([-0-9]+)", "\\1daddi\\3\\4,r0,\\5", newbuf)
     newbuf = re.sub("^([ \t]*)(j[ \t]+)r31(.*)", "\\1halt", newbuf)
     return newbuf
 
