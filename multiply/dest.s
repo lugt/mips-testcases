@@ -6,7 +6,7 @@ multime:
 	sw	r5,164(r30)
 	sw	r0,8(r30)
 	sw	r0,12(r30)
-	li	r2,1			# 0x1
+	dadd	,r0,r2			# 0x1
 	sw	r2,16(r30)
 	sw	r0,8(r30)
 	b	$L2
