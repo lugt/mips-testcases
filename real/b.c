@@ -3,6 +3,9 @@
 #define E_STR 4
 #define E_CLEAR 6
 #define E_READ 8
+// static char *prompt1 = "Mult-complex - Jason : ";
+// static char *prompt2 = "Output =";
+// #define R(r, val) (static char *r = val)
 /*
 ; Set CONTROL = 1, Set DATA to Unsigned Integer to be output
 ; Set CONTROL = 2, Set DATA to Signed Integer to be output
@@ -14,36 +17,37 @@
 ; Set CONTROL = 8, read the DATA (either an integer or a floating-point) from the keyboard
 ; Set CONTROL = 9, read one byte from DATA, no character echo.
 */
+
+#ifdef PC
+#include <stdio.h>
+int multime(int a, int b);
+int main(){
+  printf("%d\n", multime(3,4));
+  printf("%d\n", multime(7,8));
+}
+#endif
+
 int multime(int a, int b) {
-  volatile int *DATA = (volatile int *) 0x10000;
+
+  /*volatile int *DATA = (volatile int *) 0x10000;
   volatile int *CONTROL = (volatile int *) 0x10008;
 
-  
-  *DATA = (int) "Mult-complex - Jason : ";
-  *CONTROL = (int) E_STR;
-
-  *DATA = (int) " Num - LHS : ";
-  *CONTROL = (int) E_STR;
-  
   *CONTROL = (int) E_INT;
   a = *DATA;
-
-  *DATA = (int) " Num - RHS : ";
-  *CONTROL = (int) E_STR;
   
   *CONTROL = (int) E_INT;
   b = *DATA;
-
+  */
   int i = 0, result = 0;
   int lhs = a, rhs = b;
   for (i = 0; i < 32; i++) {
     if (rhs & 0x1) {
       result += lhs;
     }
-    rhs >> 1;
-    lhs << 1;
-    
-    *DATA = (int) "Cycle: ";
+    rhs = rhs >> 1;
+    lhs = lhs << 1;
+    /*
+    *DATA = (int) R(m3, "Cycle: ");
     *CONTROL = (int) E_STR;
   
     *DATA = (int) lhs;
@@ -53,14 +57,15 @@ int multime(int a, int b) {
     *CONTROL = (int) E_INT;
 
     *DATA = (int) result;
-    *CONTROL = (int) E_INT;
+    *CONTROL = (int) E_INT;*/
     
   }
   // print
-  *DATA = (int) "Output: ";
+  /*
+  *DATA = (int) R(m4, "Output: ");
   *CONTROL = (int) E_STR;
   
   *DATA = (int) result;
-  *CONTROL = (int) E_INT;
+  *CONTROL = (int) E_INT;*/
   return result;
 }
