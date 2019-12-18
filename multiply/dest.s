@@ -7,10 +7,10 @@ multime:
 	sw	r5,164(r30)
 	sw	r0,8(r30)
 	sw	r0,12(r30)
-	dadd	,r0,r2			# 0x1
+	daddi	r2,r0,1
 	sw	r2,16(r30)
 	sw	r0,8(r30)
-	b	$L2
+	j	$L2
 	nop
 
 $L3:
@@ -21,7 +21,7 @@ $L3:
 	sw	r2,12(r30)
 	lw	r2,8(r30)
 	nop
-	sll	r2,r2,2
+	dsll r2,r2,2
 	daddui	r3,r30,8
 	daddu	r2,r3,r2
 	sw	r0,12(r2)
@@ -32,24 +32,24 @@ $L3:
 $L2:
 	lw	r2,8(r30)
 	nop
-	slt	r2,r2,32
+	slti	r2,r2,32
 	bne	r2,r0,$L3
 	nop
 
 	sw	r0,8(r30)
-	b	$L4
+	j	$L4
 	nop
 
 $L5:
 	lw	r3,12(r30)
 	lw	r2,8(r30)
 	nop
-	sra	r2,r3,r2
+	dsrl	r2,r3,3
 	andi	r2,r2,0x1
 	daddui	r3,r2,48
 	lw	r2,8(r30)
 	nop
-	sll	r2,r2,2
+	dsll r2,r2,2
 	daddui	r4,r30,8
 	daddu	r2,r4,r2
 	sw	r3,12(r2)
@@ -60,7 +60,7 @@ $L5:
 $L4:
 	lw	r2,8(r30)
 	nop
-	slt	r2,r2,32
+	slti 	r2,r2,32
 	bne	r2,r0,$L5
 	nop
 
